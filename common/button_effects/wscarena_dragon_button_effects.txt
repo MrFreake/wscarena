@@ -1,0 +1,418 @@
+@ether_drake_effect_1_cooldown = 180
+@ether_drake_effect_1_duration = 90
+@ether_drake_effect_2_cooldown = 180
+@ether_drake_effect_2_duration = 90
+@ether_drake_effect_3_cooldown = 720
+@ether_drake_effect_3_duration = 90
+@level_1_max_distance = 30
+@level_2_max_distance = 60
+@level_3_max_distance = 100
+@effect_level_2 = 4
+@effect_level_3 = 7
+
+ether_drake_effect_1 = {					# Dragon Stare
+	
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = space_dragon_red
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = ether_drake_effect_1_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+				NOT = {
+					has_country_flag = ether_drake_effect_1_cooldown
+				}
+		}
+	}
+		
+	
+	effect = {
+		custom_tooltip = ether_drake_effect_1_tooltip
+		
+			set_timed_country_flag = { flag = ether_drake_effect_1_cooldown days = @ether_drake_effect_1_cooldown }
+			if = {
+				limit = {
+					check_variable = {
+						which = level
+						value < @effect_level_2
+					}
+				}			
+				random_owned_ship = {
+					limit = {
+						is_ship_size = space_dragon_red
+					}
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								distance = { min_distance > 0 max_distance < @level_1_max_distance source = prevprev type = euclidean }
+							}
+							while = {
+								limit = {
+									any_owned_ship = {
+											NOT = {
+												has_modifier = dragon_feared_1
+											}
+										}
+									}
+								
+								random_owned_ship = {
+									limit = {
+										NOT = {
+											has_modifier = dragon_feared_1
+										}
+									}
+									add_modifier = {
+										modifier = dragon_feared_1
+										days = @ether_drake_effect_1_duration
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = level
+						value >= @effect_level_2
+					}
+					check_variable = {
+						which = level
+						value < @effect_level_3
+					}
+				}			
+				random_owned_ship = {
+					limit = {
+						is_ship_size = space_dragon_red
+					}
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								distance = { min_distance > 0 max_distance < @level_2_max_distance source = prevprev type = euclidean }
+							}
+							while = {
+								limit = {
+									any_owned_ship = {
+											NOT = {
+												has_modifier = dragon_feared_2
+											}
+										}
+									}
+								
+								random_owned_ship = {
+									limit = {
+										NOT = {
+											has_modifier = dragon_feared_2
+										}
+									}
+									add_modifier = {
+										modifier = dragon_feared_2
+										days = @ether_drake_effect_1_duration
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {			
+				random_owned_ship = {
+					limit = {
+						is_ship_size = space_dragon_red
+					}
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								distance = { min_distance > 0 max_distance < @level_3_max_distance source = prevprev type = euclidean }
+							}
+							while = {
+								limit = {
+									any_owned_ship = {
+											NOT = {
+												has_modifier = dragon_feared_3
+											}
+										}
+									}
+								
+								random_owned_ship = {
+									limit = {
+										NOT = {
+											has_modifier = dragon_feared_3
+										}
+									}
+									add_modifier = {
+										modifier = dragon_feared_3
+										days = @ether_drake_effect_1_duration
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		
+	}
+}
+
+
+
+ether_drake_effect_2 = {						# Dragon Skin
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = space_dragon_red
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = ether_drake_effect_2_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			NOT = {
+				has_country_flag = ether_drake_effect_2_cooldown
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_hero_level_3
+			check_variable = {
+				which = level
+				value >= 3
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = ether_drake_effect_2_tooltip
+		#hidden_effect = {
+			set_timed_country_flag = { flag = ether_drake_effect_2_cooldown days = @ether_drake_effect_2_cooldown }
+			random_owned_ship = {
+				limit = {
+					is_ship_size = space_dragon_red
+				}
+				solar_system = {
+					every_fleet_in_system = {
+						limit = {
+							owner = {
+								OR = {
+									is_in_federation_with = root
+									is_same_value = root
+								}
+							}
+							any_owned_ship = {
+								OR = {
+									is_ship_class = shipclass_military
+									is_ship_class = shipclass_starbase
+									has_ship_flag = hero_unit
+								}
+							}
+						}
+						if = {
+							limit = {
+								prevprev = {
+									fleet = {
+										owner = {
+											check_variable = {
+												which = level
+												value < @effect_level_2
+											}
+										}
+									}
+								}
+							}
+						while = {
+							limit = {
+								any_owned_ship = {
+									NOT = {
+										has_modifier = dragon_skin_1
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+							}
+							random_owned_ship = {
+								limit = {
+									NOT = {
+										has_modifier = dragon_skin_1
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+								add_modifier = {
+									modifier = dragon_skin_1
+									days = @ether_drake_effect_2_duration
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							prevprev = {
+								fleet = {
+									owner = {
+										check_variable = {
+											which = level
+											value >= @effect_level_2
+										}
+										check_variable = {
+											which = level
+											value < @effect_level_3
+										}
+									}
+								}
+							}
+						}
+						while = {
+							limit = {
+								any_owned_ship = {
+									NOT = {
+										has_modifier = dragon_skin_2
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+							}
+							random_owned_ship = {
+								limit = {
+									NOT = {
+										has_modifier = dragon_skin_2
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+								add_modifier = {
+									modifier = dragon_skin_2
+									days = @ether_drake_effect_2_duration
+								}
+							}
+						}
+					}
+					else = {
+						while = {
+							limit = {
+								any_owned_ship = {
+									NOT = {
+										has_modifier = dragon_skin_3
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+							}
+							random_owned_ship = {
+								limit = {
+									NOT = {
+										has_modifier = dragon_skin_3
+									}
+									OR = {
+										is_ship_class = shipclass_military
+										is_ship_class = shipclass_starbase
+										has_ship_flag = hero_unit
+									}
+								}
+									add_modifier = {
+										modifier = dragon_skin_3
+										days = @ether_drake_effect_2_duration
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		#}
+	}
+}
+
+
+ether_drake_effect_3 = {					# Fear of the Drake
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = space_dragon_red
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = ether_drake_effect_3_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			NOT = {
+				has_country_flag = ether_drake_effect_3_cooldown
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_level_5
+			check_variable = {
+				which = level
+					value >= 5
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = ether_drake_effect_3_tooltip
+		#hidden_effect = {
+			set_timed_country_flag = { flag = ether_drake_effect_3_cooldown days = @ether_drake_effect_3_cooldown }
+			random_owned_ship = {
+				limit = {
+					is_ship_size = space_dragon_red
+				}
+				add_modifier = {
+					modifier = dragon_frenzy
+					days = @ether_drake_effect_3_duration
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:neutral_effect
+						create_ship = {
+							name = "NAME_dragon_frenzy_active"
+							design = "NAME_dragon_frenzy_active"
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 90
+							direction = in_system
+						}
+						set_fleet_stance = passive
+						random_owned_ship = {
+							ship_event = {
+								id = wscarena_vfx_events.1
+								days = @ether_drake_effect_2_duration
+							}
+						}
+					}
+				}
+				last_created_fleet = {
+					queue_actions = {
+						repeat = {
+							move_to = prev.fleet
+						}
+					}
+				}
+			}
+		#}
+	}
+}

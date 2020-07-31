@@ -1,0 +1,251 @@
+namespace = phoenix_start
+event = {
+	id = phoenix_start.2
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	immediate = {
+		every_playable_country = {
+			limit = {
+				is_country_type = default
+			}
+			capital_scope = {
+				#generate_empire_home_planet = yes
+				solar_system = {
+				#	generate_home_system_resources = yes
+				}
+			}
+			### ORIGINS
+
+			# Scion
+			if = {
+				limit = { has_origin = origin_scion }
+				country_event = { id = origin.5 }
+			}
+
+			# Common Ground & Hegemon
+			if = {
+				limit = { 
+					OR = {
+						has_origin = origin_common_ground
+						has_origin = origin_hegemon
+					}
+				}
+				country_event = { id = origin.55 }
+			}
+
+			# Doomsday
+			if = {
+				limit = { has_origin = origin_doomsday }
+				country_event = { id = origin.60 }
+			}
+
+			# Lost Colony
+			if = {
+				limit = { 
+					has_origin = origin_lost_colony
+					NOT = { has_country_flag = human_2 }
+				}
+				country_event = { id = origin.100 }
+			}
+
+			# Galactic Doorstep
+			if = {
+				limit = { has_origin = origin_galactic_doorstep }
+				country_event = { id = origin.1001 }
+			}
+
+			# On the Shoulders of Giants
+			if = {
+				limit = { has_origin = origin_shoulders_of_giants }
+				country_event = { id = origin.1199 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = phoenix_start.3
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		if = {
+			limit = {
+				NOR = {
+					has_origin = origin_void_dwellers
+					has_origin = origin_shattered_ring
+					has_origin = origin_machine
+					has_origin = origin_remnants
+				}
+			}
+							
+			if = {
+				limit = { ideal_planet_class = "pc_desert" }
+				random_owned_planet = {
+					change_pc = "pc_desert"
+				}
+			}
+			if = {
+				limit = { ideal_planet_class = "pc_tropical" }
+				random_owned_planet = {
+					change_pc = "pc_tropical"
+				}
+			}
+			if = {
+				limit = { ideal_planet_class = "pc_arid" }
+				random_owned_planet = {
+					change_pc = "pc_arid"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_continental"}
+				random_owned_planet = {
+					change_pc = "pc_continental"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_ocean"}
+				random_owned_planet = {
+					change_pc = "pc_ocean"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_tundra"}
+				random_owned_planet = {
+					change_pc = "pc_tundra"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_arctic"}
+				random_owned_planet = {
+					change_pc = "pc_arctic"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_alpine"}
+				random_owned_planet = {
+					change_pc = "pc_alpine"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_savannah"}
+				random_owned_planet = {
+					change_pc = "pc_savannah"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_nuked"}
+				random_owned_planet = {
+					change_pc = "pc_nuked"
+				}
+			}
+			if = {
+				limit = {ideal_planet_class = "pc_gaia"}
+				random_owned_planet = {
+					change_pc = "pc_gaia"
+				}
+			}
+		}
+		random_owned_planet = {
+			generate_empire_home_planet = yes	
+			if = {
+				limit = { NOT = { has_planet_flag = special_start_planet } }
+				if = {
+					limit = {
+						OR = {
+							NOT = { has_planet_flag = planet_earth }
+							owner = { has_origin = origin_remnants } #no special earth for you, sorry
+						}
+						NOT = { 
+							owner = { has_origin = origin_shattered_ring } 	#setup in initializer 
+						}
+					}
+					generate_start_deposits_and_blockers = yes
+				}
+				else_if = {
+					limit = { 
+						has_planet_flag = planet_earth
+						NOR = { 
+							owner = { has_origin = origin_shattered_ring } 	 #setup in initializer 
+							owner = { has_origin = origin_remnants } 		 #custom blockers
+						}
+					}
+					generate_earth_deposits_and_blockers = yes
+				}
+				generate_start_buildings_and_districts = yes
+				generate_start_pops = yes
+				generate_home_planet_final_pass = yes
+			}
+	
+			if = {
+				limit = { has_planet_flag = void_dweller_habitat_1 }
+				void_dweller_home_planet_setup = yes
+			}
+			set_capital = yes		
+			prevent_anomaly = yes
+			check_planet_employment = yes
+			calculate_modifier = yes
+			owner = {
+				log = "owner = [this.GetName]"
+				every_owned_pop_species = {
+					set_species_homeworld = prevprev
+				}
+				add_resource = { energy = 100	}
+				add_resource = { minerals = 100	}
+				add_resource = { alloys = 100	}
+				add_resource = { influence = 100 }
+				if = {
+					limit = {
+						has_authority = auth_machine_intelligence
+					}
+					if = {
+						limit = {
+							OR = {
+								has_valid_civic = civic_machine_servitor
+								has_valid_civic = civic_machine_assimilator
+							}
+						}
+						if = {
+							limit = { has_country_flag = lithoid_subspecies }
+							add_resource = { minerals = 100	}
+							add_resource = { energy = 100 }
+						}
+						else = {
+							add_resource = { food = 100	}
+							add_resource = { energy = 100 }
+						}
+					}
+					else = {
+						add_resource = { energy = 200 }
+					}
+				}
+				else = {
+					if = {
+						limit = { is_lithoid_empire = no }
+						if = {
+							limit = { has_country_flag = lithoid_subspecies }
+							add_resource = { food = 100	}
+							add_resource = { minerals = 100 }
+						}
+						else = {
+							add_resource = { food = 200 }
+						}
+					}
+					else = {
+						if = {
+							limit = { has_country_flag = non_lithoid_subspecies }
+							add_resource = { food = 100	}
+							add_resource = { minerals = 100 }
+						}
+						else = {
+							add_resource = { minerals = 200 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

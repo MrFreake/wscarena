@@ -1,0 +1,1039 @@
+namespace = wscarena_spawning
+
+event = {
+	id = wscarena_spawning.1
+	hide_window = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		spawn_relic_system = yes
+		every_country = {
+			limit = {
+				is_ai = no
+				is_country_type = default
+			}
+			country_event = {
+				id = wscarena_spawning.2
+			}
+			set_global_flag = spawning_in_progress
+		}
+	}
+}
+
+country_event = {						# Humans pick their spawns
+	id = wscarena_spawning.2
+	is_triggered_only = yes
+	title = "Pick your spawn, human" #wscarena_spawning_2_title
+	desc = wscarena_spawning_2_desc
+	#custom_gui = "choose_team_window"
+	
+	trigger = {
+		is_ai = no
+		NOT = {
+			has_country_flag = anchor_spawned
+		}
+	}
+
+	immediate = {
+		save_event_target_as = target_country
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				save_event_target_as = target_capital_system 
+			}
+		}
+	}
+
+	option = {						# pick team 1 node
+		NAME = node_team_1
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_1
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_1 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_1
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_1
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_1_gateway
+					}
+				}
+			}
+			spawn_pos_1_core_system = yes
+		}
+		else = {
+			spawn_pos_9_core_system = yes
+		}
+	}
+
+	option = {						# pick team 1 leader
+		NAME = leader_team_1
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_1 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_1
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_1
+		set_country_flag = leader_team_1
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		spawn_pos_5_core_system = yes
+	}
+
+	option = {						# pick team 2 node
+		NAME = node_team_2
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_2
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_2 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_2
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_2
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_2_gateway
+					}
+				}
+			}
+			spawn_pos_2_core_system = yes
+		}
+		else = {
+			spawn_pos_10_core_system = yes
+		}
+	}
+
+	option = {						# pick team 2 leader
+		NAME = leader_team_2
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_2 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_2
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_2
+		set_country_flag = leader_team_2
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		spawn_pos_6_core_system = yes
+	}
+
+	option = {						# pick team 3 node
+		NAME = node_team_3
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_3
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_3 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_3
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_3
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_3_gateway
+					}
+				}
+			}
+			spawn_pos_3_core_system = yes
+		}
+		else = {
+			spawn_pos_11_core_system = yes
+		}
+	}
+
+	option = {						# pick team 3 leader
+		NAME = leader_team_3
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_3 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_3
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		save_event_target_as = target_country
+		set_country_flag = player_team_3
+		set_country_flag = leader_team_3
+		random_owned_planet = {
+			save_event_target_as = target_capital
+			solar_system = {
+				#set_star_flag = player_team_1
+			}
+		}
+		country_event = {
+			id = wscarena_test.20     # Spawn Homeworld
+		}
+		country_event = {
+			id = wscarena_test.23     # Spawn Country Starbases
+		}
+		country_event = {
+			id = wscarena_test.30    # Pick avatar
+		}
+		spawn_pos_7_core_system = yes
+	}
+
+	option = {
+		NAME = debug_end_spawning
+		remove_global_flag = spawning_in_progress
+	}
+
+	after = {
+		if = {
+			limit = {
+				any_country = {
+					is_ai = no
+					is_country_type = default
+					NOT = {
+						has_country_flag = anchor_spawned
+					}
+				}
+			}
+			random_country = {
+				limit = {
+					is_country_type = default
+					NOT = {
+						has_country_flag = anchor_spawned
+					}
+					is_ai = no
+				}
+				country_event = {
+					id = wscarena_spawning.2
+				}
+			}
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_ai = no
+				}
+				country_event = {
+					id = wscarena_spawning.3
+				}
+			}
+		}
+	}
+}
+
+country_event = {						# Humans pick AI spawns
+	id = wscarena_spawning.3
+	is_triggered_only = yes
+	title = "Pick AI Spawns" #wscarena_spawning_2_title
+	desc = wscarena_spawning_3_desc
+	#custom_gui = "choose_team_window"
+
+	trigger = {
+		any_country = {
+			is_country_type = default
+			NOT = {
+				has_country_flag = anchor_spawned
+			}
+		}
+	}
+
+	immediate = {
+		random_country = {
+			limit = {
+				is_ai = yes
+				is_country_type = default
+				NOT = {
+					has_country_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = target_country
+			random_owned_planet = {
+				save_event_target_as = target_capital
+				solar_system = {
+					save_event_target_as = target_capital_system 
+				}
+			}
+		}
+	}
+
+	option = {						# pick team 1 node
+		NAME = node_team_1
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_1
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_1 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_1
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_1
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_1_gateway
+					}
+				}
+			}
+			spawn_pos_1_core_system = yes
+		}
+		else = {
+			spawn_pos_9_core_system = yes
+		}
+	}
+
+	option = {						# pick team 1 leader
+		NAME = leader_team_1
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_1 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_1
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_1
+			set_country_flag = leader_team_1
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		spawn_pos_5_core_system = yes
+	}
+
+	option = {						# pick team 2 node
+		NAME = node_team_2
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_2
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_2 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_2
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_2
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_2_gateway
+					}
+				}
+			}
+			spawn_pos_2_core_system = yes
+		}
+		else = {
+			spawn_pos_10_core_system = yes
+		}
+	}
+
+	option = {						# pick team 2 leader
+		NAME = leader_team_2
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_2 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_2
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_2
+			set_country_flag = leader_team_2
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		spawn_pos_6_core_system = yes
+	}
+
+	option = {						# pick team 3 node
+		NAME = node_team_3
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				any_system = {
+					has_star_flag = node_team_3
+					NOR = {
+						has_star_flag = core_system
+						has_star_flag = anchor_spawned
+					}
+				}
+			}
+			custom_tooltip = {
+				fail_text = pick_leader_first
+				can_choose_node_team_3 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = node_team_3
+				NOR = {
+					has_star_flag = core_system
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_3
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = pos_3_gateway
+					}
+				}
+			}
+			spawn_pos_3_core_system = yes
+		}
+		else = {
+			spawn_pos_11_core_system = yes
+		}
+	}
+
+	option = {						# pick team 3 leader
+		NAME = leader_team_3
+		allow = {
+			custom_tooltip = {
+				fail_text = spawn_occupied
+				can_choose_leader_team_3 = yes
+			}
+		}
+		random_system = {
+			limit = {
+				has_star_flag = anchor_node_team_3
+				NOT = {
+					has_star_flag = anchor_spawned
+				}
+			}
+			save_event_target_as = new_home_system
+			set_star_flag = anchor_spawned
+		}
+		event_target:target_country = {
+			set_country_flag = player_team_3
+			set_country_flag = leader_team_3
+			country_event = {
+				id = wscarena_test.20     # Spawn Homeworld
+			}
+			country_event = {
+				id = wscarena_test.23     # Spawn Country Starbases
+			}
+			country_event = {
+				id = wscarena_test.30    # Pick avatar
+			}
+		}
+		spawn_pos_7_core_system = yes
+	}
+
+	option = {
+		NAME = debug_end_spawning
+		remove_global_flag = spawning_in_progress
+	}
+
+	after = {
+		if = {
+			limit = {
+				any_country = {
+					is_ai = yes
+					is_country_type = default
+					NOT = {
+						has_country_flag = anchor_spawned
+					}
+				}
+			}
+			random_country = {
+				limit = {
+					is_ai = no
+				}
+				country_event = {
+					id = wscarena_spawning.3
+				}
+			}
+		}
+		else = { 
+			every_country = {
+				limit = {
+					NOR = {
+						is_country_type = default
+						is_ai = no
+						is_same_value = event_target:goodie_guardians
+					}
+				}
+				destroy_country = yes
+			}
+		country_event = {           # Set Team Hostility
+			id = wscarena_test.45
+			days = 3
+		}
+
+		country_event = {           # Force Closed Borders
+			id = wscarena_test.43
+			days = 5
+		}            
+
+		country_event = {           
+			id = wscarena_test.46    # Form Team Federations
+			days = 7
+		}
+
+		country_event = {           
+			id = wscarena_spawning.53    # Set Federations at war
+			days = 10
+		}
+		}
+	}
+}
+
+
+event = {                           # Setup Team Wars / Federations
+    id = wscarena_spawning.53
+    is_triggered_only = yes
+    hide_window = yes
+
+    immediate = {
+        random_country = {          # team_1
+            limit = {
+                has_country_flag = leader_team_1
+            }
+            if = {                  # declare on team_2
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_2
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_2
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_3
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_3
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_3
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_4
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_4
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_4
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+			}
+			
+			country_event = {				# choose federation type
+				id = wscarena_spawning.54
+			}
+			
+        }
+        random_country = {          # team_2
+            limit = {
+                has_country_flag = leader_team_2
+            }
+            if = {                  # declare on team_1
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_1
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_1
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_3
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_3
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_3
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_4
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_4
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_4
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+			}
+			
+			country_event = {				# choose federation type
+				id = wscarena_spawning.54
+			}
+        }
+        random_country = {          # team_3
+            limit = {
+                has_country_flag = leader_team_3
+            }
+            if = {                  # declare on team_1
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_1
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_1
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_2
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_2
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_2
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_4
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_4
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_4
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+			}
+			
+			country_event = {				# choose federation type
+				id = wscarena_spawning.54
+			}
+        }
+        random_country = {          # team_4
+            limit = {
+                has_country_flag = leader_team_4
+            }
+            if = {                  # declare on team_1
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_1
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_1
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_2
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_2
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_2
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+            }
+            if = {                  # declare on team_3
+                limit = {
+                    any_country = {
+                        has_country_flag = player_team_3
+                        NOT = { is_at_war_with = prev }
+                    }
+                }
+                random_country = {
+                    limit = {
+                        has_country_flag = player_team_3
+                    }
+                    declare_war = {
+                        target = prev
+                        attacker_war_goal = wg_wscarena 
+                    }
+                }
+			}
+			
+			country_event = {				# choose federation type
+				id = wscarena_spawning.54
+			}	
+        }
+    }
+}
+
+country_event = {
+	id = wscarena_spawning.54
+	is_triggered_only = yes
+	title = wscarena_spawning_title_54
+	desc = wscarena_spawning_desc_54
+	picture = GFX_evt_galactic_senate
+
+	immediate = { }
+
+	option = {
+		NAME = form_default_federation
+		federation = { set_federation_type = default_federation }
+	}
+
+	option = {
+		NAME = form_trade_federation
+		federation = { set_federation_type = trade_federation }
+	}
+
+	option = {
+		NAME = form_research_federation
+		federation = { set_federation_type = research_federation }
+	}
+
+	option = {
+		NAME = form_military_federation
+		federation = { set_federation_type = military_federation }
+	}
+
+	option = {
+		NAME = form_hegemony_federation
+		federation = { set_federation_type = hegemony_federation }
+	}
+
+}

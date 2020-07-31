@@ -1,0 +1,51 @@
+
+
+test_avatar_effect_1 = {				# destroy ships within a range of avatar
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = crystal_ship_large_red_elite
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = test_avatar_effect_1_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			#NOT = {
+			#	has_country_flag = psionic_entity_effect_2_cooldown
+			#}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = test_avatar_effect_1_tooltip
+		hidden_effect = {
+			#set_timed_country_flag = { flag = test_avatar_effect_1_cooldown days = @test_avatar_effect_1_cooldown }
+			random_owned_ship = {
+				limit = {
+					is_ship_size = crystal_ship_large_red_elite
+				}
+				fleet = {
+					solar_system = {
+						every_ship = {
+							limit = {
+								distance = {
+									type = euclidean
+									max_distance <= 90
+									min_distance >= 0 
+									source = prevprevprev
+								}
+								NOT = {
+									is_same_value = prevprevprev
+								}
+							}
+							destroy_ship = this
+						}
+					}
+				}
+			}
+		}
+	}
+}

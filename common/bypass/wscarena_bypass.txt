@@ -1,0 +1,164 @@
+GATEWAY_GALACTIC_TEAM_1 = {
+	name = GATEWAY_GALACTIC_TEAM_1
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 30
+	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header = GATEWAY_GALACTIC
+	galactic_map_tooltip_desc = GATEWAY_GALACTIC_DESC
+	connection_type = scripted_connection
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+
+	country_can_use = {
+		custom_tooltip = {			# Team 1
+			fail_text = WRONG_TEAM_GATEWAY
+					has_country_flag = player_team_1
+			}
+		}
+	
+
+	
+	scripted_connection = {
+	
+		# defines endpoints that can only reach the "nexus"
+		node = {
+			# system scope
+			has_star_flag = node_team_1
+			}
+	
+		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		nexus = {
+			# system scope
+			has_star_flag = anchor_node_team_1		
+		}
+	}
+}
+
+GATEWAY_GALACTIC_TEAM_2 = {
+	name = GATEWAY_GALACTIC_TEAM_2
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 30
+	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header = GATEWAY_GALACTIC
+	galactic_map_tooltip_desc = GATEWAY_GALACTIC_DESC
+	connection_type = scripted_connection
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+
+	country_can_use = {
+		custom_tooltip = {			# Team 2
+			fail_text = WRONG_TEAM_GATEWAY
+					has_country_flag = player_team_2
+			}
+		}
+	
+	
+	scripted_connection = {
+	
+		# defines endpoints that can only reach the "nexus"
+		node = {
+			# system scope
+			has_star_flag = node_team_2
+			}
+	
+		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		nexus = {
+			# system scope
+			has_star_flag = anchor_node_team_2		
+		}
+	}
+}
+
+GATEWAY_GALACTIC_TEAM_3 = {
+	name = GATEWAY_GALACTIC_TEAM_3
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 30
+	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header = GATEWAY_GALACTIC
+	galactic_map_tooltip_desc = GATEWAY_GALACTIC_DESC
+	connection_type = scripted_connection
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+
+	country_can_use = {
+		custom_tooltip = {			# Team 3
+			fail_text = WRONG_TEAM_GATEWAY
+					has_country_flag = player_team_3
+			}
+		}
+	
+	
+	scripted_connection = {
+	
+		# defines endpoints that can only reach the "nexus"
+		node = {
+			# system scope
+			has_star_flag = node_team_3
+			}
+	
+		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		nexus = {
+			# system scope
+			has_star_flag = anchor_node_team_3		
+		}
+	}
+}
+
+GATEWAY_GALACTIC_TEAM_4 = {
+	name = GATEWAY_GALACTIC_TEAM_4
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 30
+	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header = GATEWAY_GALACTIC
+	galactic_map_tooltip_desc = GATEWAY_GALACTIC_DESC
+	connection_type = scripted_connection
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+
+	country_can_use = {
+		custom_tooltip = {			# Team 4
+			fail_text = WRONG_TEAM_GATEWAY
+					has_country_flag = player_team_4
+			}
+		}
+	
+	
+	scripted_connection = {
+	
+		# defines endpoints that can only reach the "nexus"
+		node = {
+			# system scope
+			has_star_flag = node_team_4
+			}
+	
+		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		nexus = {
+			# system scope
+			has_star_flag = anchor_node_team_4		
+		}
+	}
+}

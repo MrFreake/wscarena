@@ -1,0 +1,445 @@
+@voidspawn_effect_1_cooldown = 180
+@voidspawn_effect_1_duration = 90
+@voidspawn_effect_2_cooldown = 180
+@voidspawn_effect_2_duration = 90
+@voidspawn_effect_3_cooldown = 360
+@voidspawn_effect_3_duration = 1800
+@level_1_max_distance = 30
+@level_2_max_distance = 60
+@level_3_max_distance = 100
+@effect_level_2 = 4
+@effect_level_3 = 7
+
+
+voidspawn_effect_1 = {				# Corrosive Bile
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = leviathan_01_voidspawn
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = voidspawn_effect_1_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			NOT = {
+				has_country_flag = voidspawn_effect_1_cooldown
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = voidspawn_effect_1_tooltip
+		#hidden_effect = {
+			set_timed_country_flag = { flag = voidspawn_effect_1_cooldown days = @voidspawn_effect_1_cooldown }
+			if = {
+				limit = {
+					check_variable = {
+						which = level
+						value < @effect_level_2
+					}
+				}
+				random_owned_ship = {
+					limit = {
+						is_ship_size = leviathan_01_voidspawn
+					}
+					create_ambient_object = {
+						type = voidspawn_effect_1
+						scale = 1000
+						location = this
+						use_3d_location = yes
+						entity_offset_height = 0
+						duration = 10
+					}
+					fleet = {
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								owner = {
+									OR = {
+										is_at_war_with = prevprevprev.owner
+										is_hostile = prevprevprev.owner
+									}
+								}
+								distance = {
+									type = euclidean
+									max_distance <= @level_1_max_distance
+									min_distance >= 0 
+									source = prevprev
+								}
+							}
+							while = {
+								limit = {
+									any_owned_ship = {
+										NOT = {
+											has_modifier = corossive_bile_1
+										}
+										OR = {
+											is_ship_class = shipclass_military
+											is_ship_class = shipclass_starbase
+											has_ship_flag = hero_unit
+										}
+									}
+								}
+									random_owned_ship = {
+										limit = {
+											NOT = {
+												has_modifier = corossive_bile_1
+											}
+											OR = {
+												is_ship_class = shipclass_military
+												is_ship_class = shipclass_starbase
+												has_ship_flag = hero_unit
+											}
+										}
+										add_modifier = {
+											modifier = corossive_bile_1
+											days = @voidspawn_effect_1_duration
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+					limit = {
+						check_variable = {
+							which = level
+							value >= @effect_level_2
+						}
+						check_variable = {
+							which = level
+							value < @effect_level_3
+						}
+					}
+					random_owned_ship = {
+						limit = {
+							is_ship_size = leviathan_01_voidspawn
+						}
+						create_ambient_object = {
+							type = voidspawn_effect_1
+							scale = 2000
+							location = this
+							use_3d_location = yes
+							entity_offset_height = 0
+							duration = 10
+						}
+						fleet = {
+						solar_system = {
+							every_fleet_in_system = {
+								limit = {
+									owner = {
+										OR = {
+											is_at_war_with = prevprevprev.owner
+											is_hostile = prevprevprev.owner
+										}
+									}
+									distance = {
+										type = euclidean
+										max_distance <= @level_2_max_distance
+										min_distance >= 0 
+										source = prevprev
+									}
+								}
+								while = {
+									limit = {
+										any_owned_ship = {
+											NOT = {
+												has_modifier = corossive_bile_2
+											}
+											OR = {
+												is_ship_class = shipclass_military
+												is_ship_class = shipclass_starbase
+												has_ship_flag = hero_unit
+											}
+										}
+									}
+										random_owned_ship = {
+											limit = {
+												NOT = {
+													has_modifier = corossive_bile_2
+												}
+												OR = {
+													is_ship_class = shipclass_military
+													is_ship_class = shipclass_starbase
+													has_ship_flag = hero_unit
+												}
+											}
+											add_modifier = {
+												modifier = corossive_bile_2
+												days = @voidspawn_effect_1_duration
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			else = {
+				random_owned_ship = {
+					limit = {
+						is_ship_size = leviathan_01_voidspawn
+					}
+					create_ambient_object = {
+						type = voidspawn_effect_1
+						scale = 3000
+						location = this
+						use_3d_location = yes
+						entity_offset_height = 0
+						duration = 10
+					}
+					fleet = {
+					solar_system = {
+						every_fleet_in_system = {
+							limit = {
+								owner = {
+									OR = {
+										is_at_war_with = prevprevprev.owner
+										is_hostile = prevprevprev.owner
+									}
+								}
+								distance = {
+									type = euclidean
+									max_distance <= @level_3_max_distance
+									min_distance >= 0 
+									source = prevprev
+								}
+							}
+							while = {
+								limit = {
+									any_owned_ship = {
+										NOT = {
+											has_modifier = corossive_bile_3
+										}
+										OR = {
+											is_ship_class = shipclass_military
+											is_ship_class = shipclass_starbase
+											has_ship_flag = hero_unit
+										}
+									}
+								}
+									random_owned_ship = {
+										limit = {
+											NOT = {
+												has_modifier = corossive_bile_3
+											}
+											OR = {
+												is_ship_class = shipclass_military
+												is_ship_class = shipclass_starbase
+												has_ship_flag = hero_unit
+											}
+										}
+										add_modifier = {
+											modifier = corossive_bile_3
+											days = @voidspawn_effect_1_duration
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}			
+		#}
+	}
+}
+
+
+voidspawn_effect_2 = {				# Festering Shadow
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = leviathan_01_voidspawn
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = voidspawn_effect_2_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			NOT = {
+				has_country_flag = voidspawn_effect_2_cooldown
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_level_3
+			check_variable = {
+				which = level
+				value >= 3
+			}
+		}
+		#custom_tooltip = {
+		#	fail_text = requires_hostiles_in_system
+		#	any_owned_ship = {
+		#		is_ship_size = leviathan_01_voidspawn
+		#		solar_system = {
+		#			any_system_planet = {
+		#					owner = {
+		#						OR = {
+		#							is_at_war_with = root
+		#							is_hostile = root
+		#						}
+		#					}
+		#				}
+		#			}
+		#		}
+		#	}
+	}
+	
+
+	effect = {
+		custom_tooltip = voidspawn_effect_2_tooltip
+		#hidden_effect = {
+			set_timed_country_flag = { flag = voidspawn_effect_2_cooldown days = @voidspawn_effect_2_cooldown }
+			random_owned_ship = {
+				limit = {
+					is_ship_size = leviathan_01_voidspawn
+				}
+				solar_system = {
+					every_system_planet = {
+						limit = {
+							#owner = {
+							#	OR = {
+							#		is_hostile = root
+							#		is_at_war_with = root
+							#	}
+							#}
+							num_pops > 1
+						}
+						if = {
+							limit = {
+								prevprevprev.fleet.owner = {
+									check_variable = {
+										which = level
+										value < @effect_level_2
+									}
+								}
+							}
+								add_modifier = {
+									modifier = festering_shadow_1
+									days = @voidspawn_effect_2_duration
+								}
+								create_ambient_object = {
+									type = voidspawn_effect_2_vfx
+									scale = 1
+									location = this
+									use_3d_location = yes
+									entity_offset_height = 3
+									duration = @voidspawn_effect_2_duration
+									#entity_scale_to_size = yes
+								}
+						}
+						else_if = {
+							limit = {
+								prevprevprev.fleet.owner = {
+									check_variable = {
+										which = level
+										value >= @effect_level_2
+									}
+									check_variable = {
+										which = level
+										value < @effect_level_3
+									}
+								}
+							}
+								add_modifier = {
+									modifier = festering_shadow_2
+									days = @voidspawn_effect_2_duration
+								}
+								create_ambient_object = {
+									type = voidspawn_effect_2_vfx
+									scale = 1
+									location = this
+									use_3d_location = yes
+									entity_offset_height = 3
+									duration = @voidspawn_effect_2_duration
+									#entity_scale_to_size = yes
+								}
+						}
+						else = {
+								add_modifier = {
+									modifier = festering_shadow_3
+									days = @voidspawn_effect_2_duration
+								}
+								create_ambient_object = {
+									type = voidspawn_effect_2_vfx
+									scale = 1
+									location = this
+									use_3d_location = yes
+									entity_offset_height = 3
+									duration = @voidspawn_effect_2_duration
+									#entity_scale_to_size = yes
+								}
+							}
+						}
+					}
+				}
+			#}
+		}
+	}
+
+
+
+voidspawn_effect_3 = {					# Spawn Spawnlings
+	potential = {
+		exists = from
+		from = {
+			any_owned_ship = {
+				is_ship_size = leviathan_01_voidspawn
+			}
+		}
+	}
+	allow = {
+		custom_tooltip = voidspawn_effect_3_tooltip
+		custom_tooltip = {
+			fail_text = requires_not_on_cooldown
+			NOT = {
+				has_country_flag = voidspawn_effect_3_cooldown
+			}
+		}
+		custom_tooltip = {
+			fail_text = requires_level_5
+			check_variable = {
+				which = level
+				value >= 5
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = voidspawn_effect_3_tooltip
+		#hidden_effect = {
+			set_timed_country_flag = { flag = voidspawn_effect_3_cooldown days = @voidspawn_effect_3_cooldown }
+			random_owned_ship = {
+				limit = {
+					is_ship_size = leviathan_01_voidspawn
+				}
+				solar_system = {
+					random_system_planet = {
+						limit = {
+							num_pops < 1
+							NOR = {
+								is_asteroid = yes
+								is_star = yes
+							}
+						}
+						change_pc = pc_infested
+						add_modifier = {
+							modifier = voidspawn_eggs
+							days = @voidspawn_effect_3_duration
+						}
+						planet_event = {
+							id = wscarena_voidspawn_events.1
+							days = @voidspawn_effect_3_duration
+						}
+					}
+				}
+			}
+		#}
+	}
+}

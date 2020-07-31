@@ -1,0 +1,414 @@
+@level_1_level_up_exp = 5           # If you change this, this also needs to be changed
+@level_2_level_up_exp = 15          # in scripted_effects/wscarena_avatar_effects.txt
+@level_3_level_up_exp = 30
+@level_4_level_up_exp = 50
+@level_5_level_up_exp = 75
+@level_6_level_up_exp = 100
+@level_7_level_up_exp = 125
+@level_8_level_up_exp = 150
+@level_9_level_up_exp = 175
+
+#Scope type varies depending on what is selected
+# This = selected object or player country
+# From = player country
+
+wscarena_leaderboard_button_effect = {
+	potential = {
+		exists = from
+	}
+	allow = {
+		always = yes
+	 }
+	effect = {
+		hidden_effect = {
+                country_event = {
+                    id = wscarena_leaderboard_events.4
+				}
+				#if = {
+				#	limit = {
+				#		NOT = {
+				#			exists = from
+				#		}
+				#		observer_event = {
+				#			id = wscarena_leaderboard_events.5
+				#		}
+				#	}
+				#}
+		}
+		custom_tooltip = wscarena_leaderboard_button_effect_tooltip
+	}
+}
+
+wscarena_observer_leaderboard_button_effect = {
+	potential = {
+		NOT = { exists = from }
+	}
+	allow = {
+		always = yes
+	 }
+	effect = {
+		hidden_effect = {
+                observer_event = {
+                    id = wscarena_leaderboard_events.5
+				}
+				#log = "button-press-worked"
+				#if = {
+				#	limit = {
+				#		NOT = {
+				#			exists = from
+				#		}
+				#		observer_event = {
+				#			id = wscarena_leaderboard_events.5
+				#		}
+				#	}
+				#}
+		}
+		custom_tooltip = wscarena_leaderboard_button_effect_tooltip
+	}
+}
+
+wscarena_tw_surrender_blocker = {
+	potential = {
+		#any_war = {
+		#	AND = {
+		#		any_defender = {
+		#			is_same_value = from
+		#			NOT = {
+		#				any_war = {
+		#					any_defender = {
+		#						is_same_value = from
+		#					}
+		#					NOT = {
+		#						is_same_value = prevprev
+		#						using_total_war = yes
+		#					}
+		#				} 
+		#			}
+		#		}
+		#		using_total_war = yes
+		#}
+	#}
+		always = yes
+	}
+	allow = {
+		always = no
+	}
+	effect = {
+		#log = "War = [War.GetName]"
+		print_scope_effect = yes
+		#log = "From = [From.GetName]"
+		#log = "This = [This.GetName]"
+		#log = "FromFrom = [FromFrom.GetName]"
+		#log = "Prev = [Prev.GetName]"
+		#log = "PrevPrev = [PrevPrev.GetName]"
+		#log = "Root = [Root.GetName]"
+	}
+}
+
+wscarena_level_up_effect = {
+	potential = {
+		hero_unit_can_level = yes
+	}
+
+	allow = {}
+
+	effect = {
+		custom_tooltip = wscarena_level_up_effect_tooltip
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						which = level
+						value = 6
+					}
+				}
+				give_technology = {
+					tech = tech_level_7
+					message = yes
+				}
+				random_owned_ship = {
+					limit = {
+						has_ship_flag = hero_unit
+					}
+					set_ship_flag = old_hero
+					solar_system = {
+						star = {
+						save_event_target_as = target_capital
+					}
+				}
+					delete_ship = this	
+				}
+				add_ship_design = "NAME_Grand_Dragon_Jump"
+				jump_drive_hero_design = yes
+				random_owned_ship = {
+					limit = {
+						has_ship_flag = old_hero
+					}
+					fleet = {
+						delete_fleet = this
+					}
+				}
+				level_up_hero = yes
+			}
+			else = {
+				level_up_hero = yes
+			}
+		}
+	}
+}
+
+wscarena_avatar_level_1 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 1
+		}
+		NOT = {
+			check_variable = {
+				which = level
+				value > 1		
+			}
+		}
+		hero_unit_can_level = no
+	}
+
+	allow = {
+		
+	}
+
+	effect = {
+		custom_tooltip = wscarena_avatar_level_1
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 2
+			}
+		}
+	}
+}
+
+wscarena_avatar_level_2 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 2
+		}
+		hero_unit_can_level = no
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_2
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 3
+			}
+		}
+	}
+}
+
+wscarena_avatar_level_3 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 3
+		}
+		hero_unit_can_level = no
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_3
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 4
+			}
+		}
+	}
+}
+wscarena_avatar_level_4 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 4
+		}
+		hero_unit_can_level = no 
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_4
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 5
+			}
+		}
+	}
+}
+wscarena_avatar_level_5 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 5
+		}
+		 hero_unit_can_level = no
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_5
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 6
+			}
+		}
+	}
+}
+wscarena_avatar_level_6 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 6
+		}
+		hero_unit_can_level = no 
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_6
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 7
+			}
+		}
+	}
+}
+wscarena_avatar_level_7 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 7
+		}
+		hero_unit_can_level = no 
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_7
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 8
+			}
+		}
+	}
+}
+wscarena_avatar_level_8 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 8
+		}
+		hero_unit_can_level = no 
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_8
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 9
+			}
+		}
+	}
+}
+wscarena_avatar_level_9 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 9
+		}
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_9
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+			set_variable = {
+				which = level
+				value = 10
+			}
+		}
+	}
+}
+wscarena_avatar_level_10 = {
+	potential = {
+		check_variable = {
+			which = level
+			value = 10
+		}
+		hero_unit_can_level = no 
+	}
+	allow = {
+		
+	}
+	effect = {
+		custom_tooltip = wscarena_avatar_level_10
+		if = {
+			limit = {
+				hero_unit_can_level = yes
+			}
+			level_up_hero = yes
+		}
+	}
+}

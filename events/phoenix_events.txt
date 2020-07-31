@@ -1,0 +1,38 @@
+namespace = phoenix_events
+
+
+#Fired whenever a new owner is set for a planet,
+#be it after a war or through a trade
+#From = Country scope (new owner)
+#This = Planet scope
+planet_event = {
+	id = phoenix_events.1
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		is_original_owner = from 
+	}
+
+	immediate = {
+		add_modifier = {
+			modifier = "capital_world"
+			days = -1
+		}
+	}
+}
+
+planet_event = {
+	id = phoenix_events.2
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		NOT = { is_original_owner = from }
+	}
+
+	immediate = {
+		remove_modifier = capital_world
+
+	}
+}

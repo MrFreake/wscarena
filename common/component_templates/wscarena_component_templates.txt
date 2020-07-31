@@ -1,0 +1,104 @@
+@aura_range_lvl_1 = 60
+
+utility_component_template = {
+	key = "COMBAT_COMPUTER_WSCARENA"
+	size = small
+	icon = "GFX_ship_part_computer_default"
+	icon_frame = 1
+	power = -5
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = 10
+		}
+		upkeep = {
+			#sr_living_metal = 1
+		}
+	}
+	ship_behavior = "colossus"
+	
+	class_restriction = { shipclass_military }
+	size_restriction = { ascension_ship }
+	component_set = "combat_computers"
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+
+utility_component_template = {
+	key = "SHIP_AURA_DRAGON_STARE"
+	size = small
+	icon = "GFX_ship_part_aura_shield_dampener"
+	icon_frame = 1
+	power = 0
+	
+	size_restriction = { effect_ship }
+	component_set = "wscarena_auras"
+	
+	hostile_aura = {
+		name = "aura_dragon_stare"
+		radius = 30
+		apply_on = fleets
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_dragon_stare
+			priority = 1
+		}
+		
+		modifier = {
+			ship_evasion_mult = -0.7
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = yes
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+utility_component_template = {
+	key = "GUARDIAN_DRIVE"
+	hidden = yes
+	size = small
+	icon = "GFX_ship_part_warp_drive_3"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	
+	ship_modifier = {
+		ship_windup_mult = -0.8
+	}
+	upgrades_to = "GUARDIAN_DRIVE_2"
+	component_set = "ftl_components"
+}
+
+### Jump drives
+utility_component_template = {
+	key = "GUARDIAN_DRIVE_2"
+	size = small
+	hidden = yes
+	icon = "GFX_ship_part_psi_jump_drive_1"
+	icon_frame = 1
+	ftl = yes
+	jumpdrive = yes
+	ship_modifier = {
+		ship_windup_mult = -0.8
+		ship_ftl_jumpdrive_range_mult = 0.75
+	}
+	
+	prerequisites = { "tech_level_7" }
+
+	component_set = "ftl_components"
+}
